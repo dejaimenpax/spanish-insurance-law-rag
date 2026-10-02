@@ -17,6 +17,10 @@ dependencies = [
     "httpx>=0.28.1",
     "defusedxml>=0.7.1",
     "pyyaml>=6.0.3",
+    "sentence-transformers>=3.3",
+    "torch>=2.14.1",
+    "qdrant-client>=1.15",
+    "snowballstemmer>=3.1.1",
 ]
 
 [project.scripts]
@@ -59,6 +63,10 @@ strict = true
 plugins = ["pydantic.mypy"]
 mypy_path = "src"
 
+[[tool.mypy.overrides]]
+module = ["snowballstemmer", "sentence_transformers.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
@@ -67,3 +75,12 @@ markers = [
     "integration: needs Docker services such as Qdrant",
 ]
 addopts = "-m 'not network and not integration'"
+
+# CPU-only PyTorch wheels on Linux (Docker image, CI); macOS uses the default wheels (MPS).
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
