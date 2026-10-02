@@ -21,6 +21,7 @@ dependencies = [
     "torch>=2.14.1",
     "qdrant-client>=1.15",
     "snowballstemmer>=3.1.1",
+    "anthropic>=1.11.0",
 ]
 
 [project.scripts]
@@ -53,6 +54,8 @@ src = ["src", "tests"]
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "N", "PT", "ANN", "S", "PTH", "TID"]
 ignore = ["ANN401"]
+# Typographic characters used on purpose in Spanish legal text and breadcrumbs.
+allowed-confusables = ["›", "–", "º", "ª"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "ANN"]
