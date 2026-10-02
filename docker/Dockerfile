@@ -22,13 +22,18 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
-RUN useradd --create-home --uid 1000 app && mkdir -p /app/data && chown app /app/data
+RUN useradd --create-home --uid 1000 app \
+    && mkdir -p /app/data /models \
+    && chown app /app/data /models
 USER app
 
-ENV PATH="/app/.venv/bin:$PATH"
+# Hugging Face models (bge-m3, reranker) are cached in /models, a volume shared by services.
+ENV PATH="/app/.venv/bin:$PATH" \
+    HF_HOME=/models \
+    TOKENIZERS_PARALLELISM=false
 EXPOSE 8000
 
-HEALTHCHECK --interval=15s --timeout=3s --start-period=20s --retries=3 \
+HEALTHCHECK --interval=15s --timeout=3s --start-period=300s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
 
 CMD ["insurance-rag", "serve", "--host", "0.0.0.0", "--port", "8000"]

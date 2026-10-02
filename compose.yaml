@@ -1,3 +1,6 @@
+# `docker compose up` starts Qdrant, runs an incremental ingestion of the BOE texts, then the API
+# and UI on http://localhost:8000. The first run downloads the texts and the models and embeds
+# about 2,500 chunks on CPU (see README); later runs only re-index what the BOE changed.
 services:
   qdrant:
     image: qdrant/qdrant:v1.19.1
@@ -11,10 +14,23 @@ services:
       timeout: 3s
       retries: 20
 
-  api:
+  ingest:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    image: spanish-insurance-law-rag:latest
+    command: ["insurance-rag", "ingest"]
+    environment:
+      QDRANT_URL: http://qdrant:6333
+    volumes:
+      - ./data:/app/data
+      - models:/models
+    depends_on:
+      qdrant:
+        condition: service_healthy
+
+  api:
+    image: spanish-insurance-law-rag:latest
     env_file:
       - path: .env
         required: false
@@ -23,11 +39,14 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - app-data:/app/data
+      - ./data:/app/data
+      - models:/models
     depends_on:
       qdrant:
         condition: service_healthy
+      ingest:
+        condition: service_completed_successfully
 
 volumes:
   qdrant-data:
-  app-data:
+  models:
