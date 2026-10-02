@@ -1,0 +1,140 @@
+# Norms indexed by the assistant. Texts are downloaded at ingestion time, never versioned.
+#
+# For norms that approve a consolidated text or a regulation ("por el que se aprueba el texto
+# refundido / el Reglamento ..."), only the approved text is indexed: the approving instrument's
+# single article and formal provisions are skipped (see docs/decisions/0001-corpus-scope.md).
+
+norms:
+  # --- Insurance contract and distribution -------------------------------------------------
+  - id: BOE-A-1980-22501
+    short_name: LCS
+    title: Ley 50/1980, de 8 de octubre, de Contrato de Seguro
+    aliases: ["Ley 50/1980", "Ley de Contrato de Seguro"]
+    rank: ley
+    jurisdiction: ES
+    legal_effect: national
+    topics: [contrato]
+
+  - id: BOE-A-2020-1651
+    short_name: RDL 3/2020
+    title: >-
+      Real Decreto-ley 3/2020, de 4 de febrero (Libro segundo, título I: distribución de seguros
+      y reaseguros privados)
+    aliases: ["Real Decreto-ley 3/2020", "RDL 3/2020", "RDL de distribución de seguros"]
+    rank: real_decreto_ley
+    jurisdiction: ES
+    legal_effect: national
+    topics: [distribucion]
+    scope:
+      from_block: ls # LIBRO SEGUNDO
+      until_block: ti-6 # TÍTULO II of book two (pension funds), excluded
+      extra_blocks:
+        - da-11 # Fee for registration in the register of insurance distributors
+        - da-12 # Training programmes for distributors
+        - da-13 # Retention of pre-contractual documentation
+        - dt-2 # Transitional regime for insurance undertakings
+        - dt-3 # Transitional regime for insurance intermediaries
+        - dt-4 # Book two, title I does not apply to pre-existing contracts
+        - dt-5 # Mediation and distribution agreements in force
+        - df-10 # Ley 20/2015 applies on a supplementary basis
+        - df-15 # Competence requirements for employees involved in distribution
+        - ax-3 # ANEXO XII: minimum professional competence and knowledge requirements
+    scope_rationale: >-
+      Only book two, title I (insurance and reinsurance distribution) is in scope. Final-part
+      provisions were included when their content concerns insurance distribution; final
+      provision 7.2 of the norm itself lists the ones enacted under the insurance competences.
+
+  # --- Supervision, solvency and reinsurance -----------------------------------------------
+  - id: BOE-A-2015-7897
+    short_name: LOSSEAR
+    title: >-
+      Ley 20/2015, de 14 de julio, de ordenación, supervisión y solvencia de las entidades
+      aseguradoras y reaseguradoras
+    aliases: ["Ley 20/2015", "LOSSEAR"]
+    rank: ley
+    jurisdiction: ES
+    legal_effect: national
+    topics: [ordenacion_supervision]
+
+  - id: BOE-A-2015-13057
+    short_name: ROSSEAR
+    title: >-
+      Real Decreto 1060/2015, de 20 de noviembre, de ordenación, supervisión y solvencia de las
+      entidades aseguradoras y reaseguradoras
+    aliases: ["Real Decreto 1060/2015", "RD 1060/2015", "ROSSEAR"]
+    rank: real_decreto
+    jurisdiction: ES
+    legal_effect: national
+    topics: [ordenacion_supervision]
+
+  # --- Pension plans and funds ----------------------------------------------------------------
+  - id: BOE-A-2002-24252
+    short_name: TRLPFP
+    title: >-
+      Real Decreto Legislativo 1/2002, de 29 de noviembre, texto refundido de la Ley de
+      Regulación de los Planes y Fondos de Pensiones
+    aliases: ["Real Decreto Legislativo 1/2002", "RDL 1/2002", "Ley de Planes y Fondos de Pensiones"]
+    rank: real_decreto_legislativo
+    jurisdiction: ES
+    legal_effect: national
+    topics: [pensiones]
+
+  - id: BOE-A-2004-3453
+    short_name: RPFP
+    title: Real Decreto 304/2004, de 20 de febrero, Reglamento de planes y fondos de pensiones
+    aliases: ["Real Decreto 304/2004", "RD 304/2004", "Reglamento de planes y fondos de pensiones"]
+    rank: real_decreto
+    jurisdiction: ES
+    legal_effect: national
+    topics: [pensiones]
+
+  # --- Motor insurance -----------------------------------------------------------------------
+  - id: BOE-A-2004-18911
+    short_name: LRCSCVM
+    title: >-
+      Real Decreto Legislativo 8/2004, de 29 de octubre, texto refundido de la Ley sobre
+      responsabilidad civil y seguro en la circulación de vehículos a motor
+    aliases:
+      - "Real Decreto Legislativo 8/2004"
+      - "RDL 8/2004"
+      - "Ley sobre responsabilidad civil y seguro en la circulación de vehículos a motor"
+    rank: real_decreto_legislativo
+    jurisdiction: ES
+    legal_effect: national
+    topics: [automovil]
+
+  - id: BOE-A-2008-14915
+    short_name: RSOA
+    title: >-
+      Real Decreto 1507/2008, de 12 de septiembre, Reglamento del seguro obligatorio de
+      responsabilidad civil en la circulación de vehículos a motor
+    aliases: ["Real Decreto 1507/2008", "RD 1507/2008", "Reglamento del seguro obligatorio"]
+    rank: real_decreto
+    jurisdiction: ES
+    legal_effect: national
+    topics: [automovil]
+
+  # --- Consorcio de Compensación de Seguros and extraordinary risks ---------------------------
+  - id: BOE-A-2004-18910
+    short_name: ELCCS
+    title: >-
+      Real Decreto Legislativo 7/2004, de 29 de octubre, texto refundido del Estatuto Legal del
+      Consorcio de Compensación de Seguros
+    aliases:
+      - "Real Decreto Legislativo 7/2004"
+      - "RDL 7/2004"
+      - "Estatuto Legal del Consorcio de Compensación de Seguros"
+    rank: real_decreto_legislativo
+    jurisdiction: ES
+    legal_effect: national
+    topics: [consorcio]
+
+  - id: BOE-A-2004-3373
+    short_name: RSRE
+    title: >-
+      Real Decreto 300/2004, de 20 de febrero, Reglamento del seguro de riesgos extraordinarios
+    aliases: ["Real Decreto 300/2004", "RD 300/2004", "Reglamento del seguro de riesgos extraordinarios"]
+    rank: real_decreto
+    jurisdiction: ES
+    legal_effect: national
+    topics: [consorcio]
