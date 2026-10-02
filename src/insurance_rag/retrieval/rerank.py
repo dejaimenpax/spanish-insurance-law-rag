@@ -7,10 +7,19 @@ from insurance_rag.embeddings.sentence_transformer import best_device
 
 
 class CrossEncoderReranker:
-    def __init__(self, model_name: str, *, device: str | None = None, batch_size: int = 16) -> None:
+    def __init__(
+        self,
+        model_name: str,
+        *,
+        device: str | None = None,
+        batch_size: int = 16,
+        max_length: int = 512,
+    ) -> None:
         from sentence_transformers import CrossEncoder
 
-        self._model = CrossEncoder(model_name, device=device or best_device(), max_length=1024)
+        self._model = CrossEncoder(
+            model_name, device=device or best_device(), max_length=max_length
+        )
         self._batch_size = batch_size
 
     def rerank(self, query: str, chunks: Sequence[Chunk]) -> list[float]:

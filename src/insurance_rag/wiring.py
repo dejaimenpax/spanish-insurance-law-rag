@@ -37,14 +37,20 @@ def build_reranker(settings: Settings) -> Reranker | None:
         return None
     from insurance_rag.retrieval.rerank import CrossEncoderReranker
 
-    return CrossEncoderReranker(settings.reranker_model, device=settings.embedding_device)
+    return CrossEncoderReranker(
+        settings.reranker_model,
+        device=settings.embedding_device,
+        max_length=settings.reranker_max_length,
+    )
 
 
-def build_retriever(settings: Settings) -> Retriever:
+def build_retriever(settings: Settings, *, with_reranker: bool = True) -> Retriever:
     return Retriever(
         store=build_store(settings),
         embedder=build_embedder(settings),
         bm25=build_bm25(settings),
         references=ReferenceParser(load_catalog().norms),
-        reranker=build_reranker(settings),
+        reranker=build_reranker(settings) if with_reranker else None,
+        rerank_candidates=settings.reranker_candidates,
+        candidates=settings.retrieval_candidates,
     )

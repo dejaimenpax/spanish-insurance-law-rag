@@ -240,6 +240,19 @@ class QdrantStore:
             chunks = matching or [c for c in chunks if c.apartado is None] or chunks
         return chunks[:limit]
 
+    def find_by_block(self, norm_id: str, block_id: str) -> list[Chunk]:
+        points, _ = self.client.scroll(
+            self.collection,
+            scroll_filter=qm.Filter(
+                must=[
+                    qm.FieldCondition(key="norm_id", match=qm.MatchValue(value=norm_id)),
+                    qm.FieldCondition(key="block_id", match=qm.MatchValue(value=block_id)),
+                ]
+            ),
+            limit=200,
+        )
+        return sorted((chunk_from_payload(p.payload or {}) for p in points), key=lambda c: c.seq)
+
     def _delete(self, flt: qm.Filter) -> None:
         self.client.delete(
             self.collection, points_selector=qm.FilterSelector(filter=flt), wait=True

@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Annotated, cast
 import typer
 
 if TYPE_CHECKING:
-    from insurance_rag.domain.models import NormSpec
+    from insurance_rag.domain.models import Chunk, NormSpec
     from insurance_rag.index.qdrant_store import SearchMode
 
 app = typer.Typer(help="Spanish insurance law RAG.", no_args_is_help=True)
@@ -137,6 +137,130 @@ def search(
             f" — {c.heading or ''}\n    {c.text[:160]!r}"
         )
     typer.echo(f"timings (ms): {result.timings_ms}")
+
+
+eval_app = typer.Typer(help="Evaluation commands.", no_args_is_help=True)
+app.add_typer(eval_app, name="eval")
+DEFAULT_DATASET = "eval/questions.yaml"
+
+
+@eval_app.command("validate")
+def eval_validate(
+    dataset: Annotated[str, typer.Option(help="Path to the questions file.")] = DEFAULT_DATASET,
+    show: Annotated[
+        bool, typer.Option(help="Print gold text next to each reference answer.")
+    ] = False,
+) -> None:
+    """Check that every gold provision exists in the index."""
+    from pathlib import Path
+
+    from insurance_rag.config import get_settings
+    from insurance_rag.corpus.catalog import load_catalog
+    from insurance_rag.evaluation.dataset import load_dataset
+    from insurance_rag.observability.logging import configure_logging
+    from insurance_rag.wiring import build_store
+
+    configure_logging("WARNING", json=False)
+    catalog = load_catalog()
+    data = load_dataset(Path(dataset), catalog)
+    store = build_store(get_settings())
+    missing = 0
+    for q in data.questions:
+        for key in q.gold:
+            chunks = (
+                [
+                    c
+                    for c in store.find_provision(
+                        kind=key.kind, number=key.number, norm_ids=[key.norm_id], limit=50
+                    )
+                ]
+                if key.number
+                else store.find_by_block(key.norm_id, key.block_id or "")
+            )
+            if not chunks:
+                missing += 1
+                typer.echo(f"MISSING {q.id}: {key.label(catalog)}")
+            elif show:
+                typer.echo(f"\n[{q.id}] {q.question}\n  expected: {q.answer}")
+                typer.echo(f"  gold {key.label(catalog)}: {' '.join(c.text for c in chunks)[:700]}")
+    typer.echo(f"{len(data.questions)} questions, {missing} missing gold provisions")
+    if missing:
+        raise typer.Exit(1)
+
+
+@eval_app.command("retrieval")
+def eval_retrieval(
+    dataset: Annotated[str, typer.Option(help="Path to the questions file.")] = DEFAULT_DATASET,
+    configs: Annotated[
+        str,
+        typer.Option(
+            help="Comma-separated: dense, sparse, hybrid, hybrid+refs, hybrid+refs+rerank."
+        ),
+    ] = "dense,sparse,hybrid,hybrid+refs",
+    out_dir: Annotated[str, typer.Option(help="Where to write the JSON report.")] = "eval/results",
+) -> None:
+    """Measure recall@k and MRR of each retrieval configuration."""
+    from pathlib import Path
+
+    from insurance_rag.config import get_settings
+    from insurance_rag.corpus.catalog import load_catalog
+    from insurance_rag.evaluation.dataset import load_dataset
+    from insurance_rag.evaluation.runner import (
+        SearchFn,
+        evaluate_retrieval,
+        markdown_table,
+        write_report,
+    )
+    from insurance_rag.observability.logging import configure_logging
+    from insurance_rag.wiring import build_reranker, build_retriever
+
+    configure_logging("WARNING", json=False)
+    settings = get_settings()
+    data = load_dataset(Path(dataset), load_catalog())
+    retriever = build_retriever(settings, with_reranker=False)
+
+    def make(mode: str, refs: bool, rerank: bool) -> SearchFn:
+        def search(query: str) -> list["Chunk"]:
+            retriever.reranker = reranker if rerank else None
+            result = retriever.retrieve(
+                query, k=10, mode=cast("SearchMode", mode), use_references=refs
+            )
+            return [h.chunk for h in result.hits]
+
+        return search
+
+    names = [c.strip() for c in configs.split(",") if c.strip()]
+    reranker = build_reranker(settings) if any("rerank" in n for n in names) else None
+    if any("rerank" in n for n in names) and reranker is None:
+        raise typer.BadParameter("rerank configs need RERANKER_MODEL to be set")
+    fns = {}
+    for name in names:
+        parts = name.split("+")
+        fns[name] = make(parts[0], "refs" in parts, "rerank" in parts)
+    results = evaluate_retrieval(data, fns)
+    path = write_report(
+        results,
+        Path(out_dir),
+        prefix="retrieval",
+        metadata={
+            "dataset_version": data.version,
+            "review_status": data.review_status,
+            "embedding_model": settings.embedding_model,
+            "reranker_model": settings.reranker_model
+            or ("BAAI/bge-reranker-v2-m3" if reranker else None),
+            "questions": len(data.questions),
+        },
+    )
+    typer.echo(markdown_table(results))
+    for r in results:
+        typer.echo(
+            f"\n{r.name}: "
+            + ", ".join(
+                f"{c}: MRR {m['mrr']:.3f} R@5 {m['recall@5']:.3f} (n={m['n']})"
+                for c, m in r.by_category.items()
+            )
+        )
+    typer.echo(f"\nreport: {path}")
 
 
 @app.command()

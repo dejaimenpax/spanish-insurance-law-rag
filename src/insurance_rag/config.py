@@ -27,8 +27,12 @@ class Settings(BaseSettings):
     embedding_query_prompt: str = ""
     chunk_max_chars: int = 3200
 
-    reranker_model: str | None = None
-    """Cross-encoder used to rerank candidates, e.g. BAAI/bge-reranker-v2-m3; off when unset."""
+    reranker_model: str | None = "BAAI/bge-reranker-v2-m3"
+    """Cross-encoder that reranks the fused candidates; set to an empty value to disable."""
+    reranker_candidates: int = 10
+    reranker_max_length: int = 512
+    retrieval_candidates: int = 50
+    """Candidates fetched from each of the dense and sparse searches before fusion."""
 
     @property
     def raw_dir(self) -> Path:

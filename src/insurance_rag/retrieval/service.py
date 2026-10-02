@@ -40,7 +40,11 @@ class Retriever:
         bm25: Bm25Encoder,
         references: ReferenceParser,
         reranker: Reranker | None = None,
+        rerank_candidates: int = 20,
+        candidates: int = 50,
     ) -> None:
+        self.rerank_candidates = rerank_candidates
+        self.candidates = candidates
         self.store = store
         self.embedder = embedder
         self.bm25 = bm25
@@ -55,7 +59,6 @@ class Retriever:
         mode: SearchMode = "hybrid",
         chunk_filter: ChunkFilter | None = None,
         use_references: bool = True,
-        candidates: int = 50,
     ) -> RetrievalResult:
         chunk_filter = chunk_filter or ChunkFilter()
         timings: dict[str, float] = {}
@@ -70,14 +73,14 @@ class Retriever:
         sparse = self.bm25.encode_query(query) if mode in ("sparse", "hybrid") else None
 
         start = time.perf_counter()
-        pool = candidates if self.reranker else k
+        pool = max(k, self.rerank_candidates) if self.reranker else k
         found = self.store.search(
             dense=dense,
             sparse=sparse,
             mode=mode,
             limit=pool,
             chunk_filter=chunk_filter,
-            candidates=candidates,
+            candidates=self.candidates,
         )
         timings["search"] = _ms(start)
 

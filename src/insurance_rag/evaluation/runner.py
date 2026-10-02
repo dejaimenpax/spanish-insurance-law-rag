@@ -87,7 +87,7 @@ def write_report(
         "metadata": {**metadata, "git": git_revision(), "created_at": stamp},
         "results": [r.__dict__ for r in results],
     }
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=1), "utf-8")
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", "utf-8")
     return path
 
 
