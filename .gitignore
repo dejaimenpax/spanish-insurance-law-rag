@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Secrets
+.env
+
+# Downloaded legal texts and local state (never versioned)
+data/*
+!data/.gitkeep
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
