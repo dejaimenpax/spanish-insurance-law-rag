@@ -1,0 +1,926 @@
+# Evaluation set v1 — phase 1 (Spanish law, BOE consolidated texts).
+#
+# Drafted with an LLM from sampled provisions and pending human legal review (see eval/README.md).
+# `gold` lists the provisions that must be retrieved to answer; `answer` is a short reference
+# answer used to grade correctness. Provisions are written as "<short_name> art. N",
+# "<short_name> DA|DT|DF N" or "<short_name> anexo <block_id>".
+#
+# Categories:
+#   single        answer in one provision of one norm
+#   literal       the question cites the provision explicitly
+#   cross         needs provisions from two norms (e.g. a law and its regulation)
+#   out_of_scope  not covered by the indexed norms: the assistant must abstain
+
+version: 1
+review_status: draft
+questions:
+  # --- LCS: Ley 50/1980, de Contrato de Seguro ------------------------------------------------
+  - id: lcs-01
+    category: single
+    question: "¿Qué deben cumplir las cláusulas limitativas de los derechos de los asegurados para ser válidas?"
+    gold: [LCS art. 3]
+    answer: "Deben destacarse de modo especial en la póliza y ser específicamente aceptadas por escrito."
+  - id: lcs-02
+    category: single
+    question: "¿Es válido un seguro contratado cuando el siniestro ya había ocurrido?"
+    gold: [LCS art. 4]
+    answer: "No; el contrato es nulo, salvo en los casos previstos por la Ley, si al concluirlo no existía el riesgo o ya había ocurrido el siniestro."
+  - id: lcs-03
+    category: single
+    question: "¿Durante cuánto tiempo vincula al asegurador su proposición de seguro?"
+    gold: [LCS art. 6]
+    answer: "La proposición del asegurador le vincula durante quince días; la solicitud no vincula al solicitante."
+  - id: lcs-04
+    category: single
+    question: "¿Qué obligación tiene el tomador de informar sobre el riesgo antes de firmar el seguro y qué puede hacer la aseguradora si descubre que ocultó información?"
+    gold: [LCS art. 10]
+    answer: "Debe declarar, según el cuestionario del asegurador, las circunstancias que influyan en la valoración del riesgo; ante reserva o inexactitud el asegurador puede rescindir el contrato en el plazo de un mes desde que la conozca."
+  - id: lcs-05
+    category: single
+    question: "Si durante el contrato aumenta el riesgo asegurado, ¿qué debe hacer el tomador?"
+    gold: [LCS art. 11]
+    answer: "Debe comunicar al asegurador, tan pronto como le sea posible, la alteración de las circunstancias declaradas que agraven el riesgo."
+  - id: lcs-06
+    category: single
+    question: "¿Qué ocurre si no se paga la primera prima del seguro?"
+    gold: [LCS art. 15]
+    answer: "Si por culpa del tomador no se paga la primera prima, el asegurador puede resolver el contrato o exigir el pago; si la prima no se ha pagado antes del siniestro, el asegurador queda liberado de su obligación."
+  - id: lcs-07
+    category: single
+    question: "Tengo una prima periódica impagada que no es la primera, ¿sigo cubierto?"
+    gold: [LCS art. 15]
+    answer: "La cobertura queda suspendida un mes después del vencimiento; si el asegurador no reclama el pago en seis meses, el contrato se entiende extinguido."
+  - id: lcs-08
+    category: single
+    question: "¿En qué plazo hay que comunicar un siniestro a la aseguradora?"
+    gold: [LCS art. 16]
+    answer: "Dentro del plazo máximo de siete días desde que se conoció, salvo que se haya fijado en la póliza un plazo más amplio."
+  - id: lcs-09
+    category: single
+    question: "¿Está obligado el asegurado a intentar reducir los daños una vez ocurrido el siniestro?"
+    gold: [LCS art. 17]
+    answer: "Sí, debe emplear los medios a su alcance para aminorar las consecuencias; si no lo hace, el asegurador puede reducir su prestación."
+  - id: lcs-10
+    category: single
+    question: "¿Cuándo debe pagar como mínimo el asegurador tras la declaración del siniestro?"
+    gold: [LCS art. 18]
+    answer: "Dentro de los cuarenta días desde la recepción de la declaración del siniestro debe pagar el importe mínimo de lo que pueda deber."
+  - id: lcs-11
+    category: single
+    question: "¿Qué interés se aplica cuando la aseguradora se retrasa en pagar la indemnización?"
+    gold: [LCS art. 20]
+    answer: "Un interés anual igual al interés legal del dinero incrementado en un 50 %; transcurridos dos años desde el siniestro no puede ser inferior al 20 %."
+  - id: lcs-12
+    category: single
+    question: "¿Cuál es la duración máxima de un contrato de seguro y cómo se puede evitar su renovación automática?"
+    gold: [LCS art. 22]
+    answer: "La duración no puede superar diez años; las partes pueden oponerse a la prórroga mediante notificación escrita con al menos un mes de antelación si es el tomador y dos meses si es el asegurador."
+  - id: lcs-13
+    category: single
+    question: "¿En cuánto tiempo prescriben las acciones derivadas de un seguro de daños y de un seguro de personas?"
+    gold: [LCS art. 23]
+    answer: "Dos años en el seguro de daños y cinco años en el seguro de personas."
+  - id: lcs-14
+    category: single
+    question: "¿Puede el seguro suponer un enriquecimiento para el asegurado?"
+    gold: [LCS art. 26]
+    answer: "No; el seguro no puede ser objeto de enriquecimiento injusto y el daño se determina según el valor del interés asegurado inmediatamente antes del siniestro."
+  - id: lcs-15
+    category: single
+    question: "Si tengo el mismo bien asegurado con dos compañías distintas por el mismo riesgo, ¿qué debo hacer?"
+    gold: [LCS art. 32]
+    answer: "Debe comunicarse a cada asegurador los demás seguros; en caso de siniestro los aseguradores contribuyen proporcionalmente a la suma asegurada por cada uno."
+  - id: lcs-16
+    category: single
+    question: "¿Puede la aseguradora reclamar al responsable del daño después de pagar al asegurado?"
+    gold: [LCS art. 43]
+    answer: "Sí, una vez pagada la indemnización el asegurador se subroga en los derechos y acciones del asegurado frente a los responsables, hasta el límite de la indemnización."
+  - id: lcs-17
+    category: single
+    question: "¿Qué daños cubre el seguro de incendios?"
+    gold: [LCS art. 49]
+    answer: "Los daños y pérdidas materiales causados por la acción directa del fuego y las consecuencias inevitables del incendio, incluidas las medidas para impedirlo o extinguirlo."
+  - id: lcs-18
+    category: single
+    question: "¿Tiene el perjudicado acción directa contra la aseguradora del responsable civil?"
+    gold: [LCS art. 76]
+    answer: "Sí, el perjudicado o sus herederos tienen acción directa contra el asegurador, sin perjuicio del derecho de éste a repetir contra el asegurado si el daño se debe a su conducta dolosa."
+  - id: lcs-19
+    category: single
+    question: "¿Qué cubre el seguro de defensa jurídica?"
+    gold: [LCS art. 76 a]
+    answer: "Los gastos del asegurado por su intervención en procedimientos administrativos, judiciales o arbitrales y los servicios de asistencia jurídica derivados de la cobertura."
+  - id: lcs-20
+    category: single
+    question: "¿Puede el tomador de un seguro de vida cambiar el beneficiario sin permiso de la aseguradora?"
+    gold: [LCS art. 84]
+    answer: "Sí, puede designar o modificar el beneficiario sin consentimiento del asegurador, en la póliza, en una declaración escrita posterior o en testamento."
+  - id: lcs-21
+    category: single
+    question: "¿Cuándo deja de poder impugnar la aseguradora un seguro de vida por inexactitudes en la declaración del tomador?"
+    gold: [LCS art. 89]
+    answer: "Transcurrido un año desde la conclusión del contrato, salvo que se haya fijado un plazo más breve o el tomador haya actuado con dolo."
+  - id: lcs-22
+    category: single
+    question: "Si el asegurado provoca intencionadamente un accidente, ¿cobra el seguro de accidentes?"
+    gold: [LCS art. 102]
+    answer: "No, el asegurador se libera de su obligación; si es el beneficiario quien causa dolosamente el siniestro, su designación es nula."
+  - id: lcs-23
+    category: single
+    question: "¿Qué es el seguro de dependencia según la ley del contrato de seguro?"
+    gold: [LCS art. 106 ter]
+    answer: "Aquel por el que el asegurador se obliga, para el caso de que se produzca la situación de dependencia, al cumplimiento de la prestación convenida."
+
+  # --- RDL 3/2020, libro segundo, título I: distribución de seguros ---------------------------
+  - id: dist-01
+    category: single
+    question: "¿Qué actividades se consideran distribución de seguros?"
+    gold: [RDL 3/2020 art. 129]
+    answer: "El asesoramiento, propuesta o trabajo previo a la celebración de contratos de seguro, su celebración y la asistencia en su gestión y ejecución, en particular en caso de siniestro."
+  - id: dist-02
+    category: single
+    question: "¿Quiénes pueden ser distribuidores de seguros?"
+    gold: [RDL 3/2020 art. 134]
+    answer: "Las entidades aseguradoras, los mediadores de seguros y los mediadores de seguros complementarios."
+  - id: dist-03
+    category: single
+    question: "¿Quién lleva el registro de distribuidores de seguros y reaseguros?"
+    gold: [RDL 3/2020 art. 133]
+    answer: "La Dirección General de Seguros y Fondos de Pensiones o, en su caso, el órgano competente de la comunidad autónoma."
+  - id: dist-04
+    category: single
+    question: "¿Qué es un agente de seguros?"
+    gold: [RDL 3/2020 art. 140]
+    answer: "Persona física o jurídica, distinta de una aseguradora o sus empleados, que mediante un contrato de agencia con una o varias aseguradoras realiza la actividad de distribución en su nombre."
+  - id: dist-05
+    category: single
+    question: "Si pago la prima al agente de seguros, ¿se considera pagada a la aseguradora?"
+    gold: [RDL 3/2020 art. 142]
+    answer: "Sí, los importes abonados por el cliente al agente se consideran abonados a la entidad aseguradora."
+  - id: dist-06
+    category: single
+    question: "¿Quién responde de los daños causados por un agente de seguros en su actividad?"
+    gold: [RDL 3/2020 art. 143]
+    answer: "La responsabilidad civil profesional se imputa a la entidad aseguradora con la que el agente haya celebrado el contrato de agencia."
+  - id: dist-07
+    category: single
+    question: "¿Puede un agente de seguros trabajar también como perito de seguros?"
+    gold: [RDL 3/2020 art. 145]
+    answer: "No, los agentes no pueden ejercer como corredor, colaborador de corredor, perito de seguros o comisario de averías a designación de tomadores, asegurados o beneficiarios."
+  - id: dist-08
+    category: single
+    question: "¿Qué diferencia a un corredor de seguros de otros mediadores?"
+    gold: [RDL 3/2020 art. 155]
+    answer: "El corredor ofrece asesoramiento independiente basado en un análisis objetivo y personalizado, sin vínculos que afecten a su independencia con las aseguradoras."
+  - id: dist-09
+    category: single
+    question: "¿Están obligados los corredores de seguros a atender las quejas de sus clientes?"
+    gold: [RDL 3/2020 art. 166]
+    answer: "Sí, deben atender y resolver las quejas y reclamaciones, disponiendo de un departamento o servicio de atención al cliente."
+  - id: dist-10
+    category: single
+    question: "¿Cuál es el principio general de conducta de los distribuidores de seguros frente a sus clientes?"
+    gold: [RDL 3/2020 art. 172]
+    answer: "Actuar siempre con honestidad, equidad y profesionalidad en beneficio de los intereses de sus clientes, con información imparcial, clara y no engañosa."
+  - id: dist-11
+    category: single
+    question: "Si contrato un seguro junto con otro producto en el mismo paquete, ¿qué me tiene que informar el distribuidor?"
+    gold: [RDL 3/2020 art. 184]
+    answer: "Si los componentes pueden adquirirse por separado y, en tal caso, una descripción de cada uno y de sus costes y gastos por separado."
+  - id: dist-12
+    category: single
+    question: "¿Hay que entregar el documento de información previa en los seguros de grandes riesgos?"
+    gold: [RDL 3/2020 art. 177]
+    answer: "No, no es obligatoria la información previa de los artículos 173 a 176 en la distribución de seguros de grandes riesgos."
+  - id: dist-13
+    category: single
+    question: "¿Se aplican las nuevas normas de distribución a los contratos de seguro firmados antes de su entrada en vigor?"
+    gold: [RDL 3/2020 DT 4]
+    answer: "No, salvo los contratos anteriores que hayan sido objeto de novación extintiva, desde el momento en que ésta se produzca."
+  - id: dist-14
+    category: single
+    question: "¿Qué norma se aplica supletoriamente en lo no previsto por la regulación de distribución de seguros?"
+    gold: [RDL 3/2020 DF 10]
+    answer: "La Ley 20/2015, de ordenación, supervisión y solvencia de las entidades aseguradoras y reaseguradoras."
+  - id: dist-15
+    category: single
+    question: "¿Durante cuánto tiempo deben conservar los distribuidores la documentación precontractual?"
+    gold: [RDL 3/2020 DA 13]
+    answer: "Durante un plazo mínimo de seis años desde la finalización de los efectos del contrato."
+  - id: dist-16
+    category: single
+    question: "¿Qué conocimientos mínimos se exigen a quienes distribuyen seguros distintos del de vida?"
+    gold: [RDL 3/2020 anexo ax-3]
+    answer: "Los del anexo XII, entre otros cobertura y condiciones de los productos, legislación aplicable, tramitación de siniestros y quejas, evaluación de necesidades y normas de conducta."
+
+  # --- LOSSEAR: Ley 20/2015 ------------------------------------------------------------------
+  - id: los-01
+    category: single
+    question: "¿Qué operaciones tienen prohibidas las entidades aseguradoras?"
+    gold: [LOSSEAR art. 5]
+    answer: "Entre otras, las que carezcan de base técnica actuarial y cualquier actividad comercial o garantía distinta de la propia actividad aseguradora."
+  - id: los-02
+    category: single
+    question: "¿Quién autoriza a una entidad aseguradora para empezar a operar en España?"
+    gold: [LOSSEAR art. 20]
+    answer: "Requiere autorización administrativa previa del Ministro de Economía; la solicitud se presenta ante la Dirección General de Seguros y Fondos de Pensiones."
+  - id: los-03
+    category: single
+    question: "¿Qué formas jurídicas puede adoptar una entidad aseguradora?"
+    gold: [LOSSEAR art. 27]
+    answer: "Sociedad anónima, sociedad anónima europea, mutua de seguros, sociedad cooperativa, sociedad cooperativa europea y mutualidad de previsión social."
+  - id: los-04
+    category: single
+    question: "¿Qué capital social mínimo necesita una sociedad anónima de seguros para operar en el ramo de vida?"
+    gold: [LOSSEAR art. 33]
+    answer: "9.015.000 euros en los ramos de vida, caución, crédito y los que cubran responsabilidad civil."
+  - id: los-05
+    category: single
+    question: "¿Pueden usar la palabra \"seguros\" en su nombre empresas que no sean aseguradoras?"
+    gold: [LOSSEAR art. 29]
+    answer: "No, las palabras \"seguros\" y \"reaseguros\" quedan reservadas en exclusiva a las entidades aseguradoras y reaseguradoras."
+  - id: los-06
+    category: single
+    question: "¿Cómo se calcula el capital de solvencia obligatorio?"
+    gold: [LOSSEAR art. 74]
+    answer: "Según el principio de continuidad del negocio, igual al valor en riesgo de los fondos propios básicos con un nivel de confianza del 99,5 % a un año."
+  - id: los-07
+    category: single
+    question: "¿Puede una aseguradora calcular el capital de solvencia con un modelo propio en lugar de la fórmula estándar?"
+    gold: [LOSSEAR art. 75]
+    answer: "Sí, puede usar un modelo interno completo o parcial previamente autorizado, además de la fórmula estándar."
+  - id: los-08
+    category: single
+    question: "¿Qué es el capital mínimo obligatorio de una aseguradora?"
+    gold: [LOSSEAR art. 78]
+    answer: "El importe de fondos propios básicos admisibles por debajo del cual tomadores y beneficiarios estarían expuestos a un nivel de riesgo inaceptable si la entidad continuara su actividad."
+  - id: los-09
+    category: single
+    question: "¿Con qué principio deben invertir sus recursos las aseguradoras?"
+    gold: [LOSSEAR art. 79]
+    answer: "Con arreglo al principio de prudencia, sólo en activos cuyos riesgos puedan determinar, medir, vigilar, gestionar y controlar."
+  - id: los-10
+    category: single
+    question: "¿En qué deben basarse las tarifas de primas de las aseguradoras?"
+    gold: [LOSSEAR art. 94]
+    answer: "En bases técnicas e información estadística, y ser suficientes según hipótesis actuariales razonables."
+  - id: los-11
+    category: single
+    question: "¿Qué deben hacer las aseguradoras para combatir el fraude en seguros?"
+    gold: [LOSSEAR art. 100]
+    answer: "Adoptar medidas efectivas para prevenir, impedir, identificar, detectar, informar y remediar conductas fraudulentas, individualmente o mediante ficheros comunes."
+  - id: los-12
+    category: single
+    question: "¿Quién protege administrativamente a los usuarios de seguros privados?"
+    gold: [LOSSEAR art. 119]
+    answer: "La Dirección General de Seguros y Fondos de Pensiones, en los términos de la Ley 20/2015 y la Ley 44/2002."
+  - id: los-13
+    category: single
+    question: "¿Cuáles son las causas de disolución de una entidad aseguradora?"
+    gold: [LOSSEAR art. 172]
+    answer: "Entre otras, la revocación de la autorización que afecte a todos los ramos y la cesión total de la cartera de todos los ramos, con las salvedades y demás causas del artículo."
+  - id: los-14
+    category: single
+    question: "¿Es infracción muy grave no disponer del capital mínimo obligatorio?"
+    gold: [LOSSEAR art. 194]
+    answer: "Sí, el incumplimiento de la obligación de disponer del capital mínimo obligatorio es infracción muy grave."
+  - id: los-15
+    category: single
+    question: "¿Puede la DGSFP limitar la exposición de las aseguradoras a determinados sectores económicos?"
+    gold: [LOSSEAR art. 117 bis]
+    answer: "Sí, como medida macroprudencial puede fijar límites de exposición a sectores o categorías de activos."
+  - id: los-16
+    category: single
+    question: "¿Qué sanciones corresponden a una aseguradora por infracciones graves?"
+    gold: [LOSSEAR art. 199]
+    answer: "Entre otras, la suspensión de la autorización para operar en uno o varios ramos, multas y amonestación pública."
+
+  # --- ROSSEAR: Real Decreto 1060/2015 --------------------------------------------------------
+  - id: ros-01
+    category: single
+    question: "¿Qué requisitos hay para que una aseguradora amplíe su autorización a otros ramos?"
+    gold: [ROSSEAR art. 7]
+    answer: "Requiere autorización administrativa y que la entidad, entre otros requisitos, tenga fondos propios admisibles que cubran el capital mínimo obligatorio y el capital de solvencia obligatorio de los ramos ya autorizados."
+  - id: ros-02
+    category: single
+    question: "¿Qué información adicional debe incluir el programa de actividades en los ramos de enfermedad, defensa jurídica, asistencia y decesos?"
+    gold: [ROSSEAR art. 12]
+    answer: "Indicaciones y justificaciones sobre la capacidad para organizar los servicios y los medios para prestarlos."
+  - id: ros-03
+    category: single
+    question: "¿Cómo se calcula la provisión del seguro de decesos?"
+    gold: [ROSSEAR art. 58]
+    answer: "Conforme a las normas de los seguros de vida y la normativa de la UE directamente aplicable, con la prima de tarifa como base de cálculo."
+  - id: ros-04
+    category: single
+    question: "¿En qué casos puede la DGSFP exigir un capital de solvencia adicional a una aseguradora?"
+    gold: [ROSSEAR art. 65]
+    answer: "Con carácter excepcional, por ejemplo cuando el perfil de riesgo se aparte significativamente de las hipótesis de la fórmula estándar o del modelo interno, o haya deficiencias en el sistema de gobierno."
+  - id: ros-05
+    category: single
+    question: "¿Pueden dos aseguradoras españolas cederse contratos de su cartera?"
+    gold: [ROSSEAR art. 99]
+    answer: "Sí, pueden cederse la cartera de uno o más ramos, salvo las mutualidades de previsión social, que sólo pueden adquirir carteras de entidades de su misma clase."
+  - id: ros-06
+    category: single
+    question: "¿Cómo se calcula la provisión de primas en el régimen especial de solvencia?"
+    gold: [ROSSEAR art. 130]
+    answer: "Póliza a póliza, por la fracción de las primas devengadas imputable al período entre el cierre y el término de la cobertura."
+  - id: ros-07
+    category: single
+    question: "¿Qué mínimo deben alcanzar las provisiones de seguros de vida respecto al valor de rescate?"
+    gold: [ROSSEAR art. 135]
+    answer: "Deben ser en todo momento, como mínimo, iguales al valor de rescate garantizado."
+  - id: ros-08
+    category: single
+    question: "¿Qué representa la provisión de siniestros pendientes?"
+    gold: [ROSSEAR art. 138]
+    answer: "El importe total de las obligaciones pendientes derivadas de siniestros ocurridos antes del cierre del ejercicio."
+  - id: ros-09
+    category: single
+    question: "¿Cómo deben gestionarse las operaciones de vida y no vida en una misma entidad?"
+    gold: [ROSSEAR art. 156]
+    answer: "De forma separada e independiente, sin que los intereses de los tomadores de una y otra actividad puedan verse perjudicados."
+  - id: ros-10
+    category: single
+    question: "¿Con qué periodicidad deben notificarse las operaciones intragrupo significativas cuando la DGSFP es supervisor de grupo?"
+    gold: [ROSSEAR art. 203]
+    answer: "Trimestralmente."
+  - id: ros-11
+    category: single
+    question: "¿Qué deben hacer los liquidadores al terminar la liquidación de una aseguradora?"
+    gold: [ROSSEAR art. 227]
+    answer: "Remitir a la DGSFP copia autorizada de la escritura pública prevista en el Reglamento del Registro Mercantil, para que el ministro declare extinguida la entidad."
+
+  # --- TRLPFP: Real Decreto Legislativo 1/2002 -----------------------------------------------
+  - id: pfp-01
+    category: single
+    question: "¿Qué es un fondo de pensiones?"
+    gold: [TRLPFP art. 2]
+    answer: "Un patrimonio creado al exclusivo objeto de dar cumplimiento a planes de pensiones."
+  - id: pfp-02
+    category: single
+    question: "¿Qué modalidades de planes de pensiones existen según quién los promueve?"
+    gold: [TRLPFP art. 4]
+    answer: "Sistema de empleo, sistema asociado y sistema individual."
+  - id: pfp-03
+    category: single
+    question: "¿Cuáles son los principios básicos que deben cumplir los planes de pensiones?"
+    gold: [TRLPFP art. 5]
+    answer: "No discriminación, capitalización, irrevocabilidad de aportaciones, atribución de derechos e integración obligatoria en un fondo de pensiones."
+  - id: pfp-04
+    category: single
+    question: "¿Responden los partícipes con su patrimonio de las deudas del fondo de pensiones?"
+    gold: [TRLPFP art. 12]
+    answer: "No, la responsabilidad de promotores y partícipes está limitada a sus compromisos de aportación."
+  - id: pfp-05
+    category: single
+    question: "¿Por qué causas se disuelve un fondo de pensiones?"
+    gold: [TRLPFP art. 15]
+    answer: "Por revocación de la autorización, paralización de su comisión de control, los supuestos de sustitución de gestora o depositaria del artículo 23, decisión de la comisión de control y otras causas de sus normas de funcionamiento."
+  - id: pfp-06
+    category: single
+    question: "¿Qué capital mínimo debe tener una entidad gestora de fondos de pensiones?"
+    gold: [TRLPFP art. 20]
+    answer: "Un capital desembolsado mínimo de 600.000 euros, entre otros requisitos."
+  - id: pfp-07
+    category: single
+    question: "¿Frente a quién responden la gestora y la depositaria de un fondo de pensiones?"
+    gold: [TRLPFP art. 22]
+    answer: "Frente a promotores, partícipes y beneficiarios por los perjuicios causados por el incumplimiento de sus obligaciones."
+  - id: pfp-08
+    category: single
+    question: "¿Pueden las gestoras de fondos de pensiones externalizar funciones clave?"
+    gold: [TRLPFP art. 30 sexies]
+    answer: "Sí, pueden encomendar actividades, incluidas funciones clave, a prestadores de servicios, con las excepciones y condiciones reglamentarias."
+  - id: pfp-09
+    category: single
+    question: "¿Qué son los planes de pensiones de empleo simplificados?"
+    gold: [TRLPFP art. 67]
+    answer: "Modalidades de planes de empleo como los sectoriales promovidos en acuerdos colectivos, los de empresas y entidades públicas y los de trabajadores autónomos, constituidos según ese capítulo."
+  - id: pfp-10
+    category: single
+    question: "¿Quién puede ser sancionado por infracciones de la normativa de planes y fondos de pensiones?"
+    gold: [TRLPFP art. 35]
+    answer: "Gestoras, depositarias, promotores, comercializadores, actuarios y otras personas y entidades a las que se hayan transferido funciones, entre otros."
+
+  # --- RPFP: Real Decreto 304/2004 ------------------------------------------------------------
+  - id: rpf-01
+    category: single
+    question: "¿Qué contingencias puede cubrir un plan de pensiones?"
+    gold: [RPFP art. 7]
+    answer: "Jubilación, incapacidad permanente, fallecimiento y dependencia severa o gran dependencia."
+  - id: rpf-02
+    category: single
+    question: "¿A partir de qué edad puede anticiparse la prestación de jubilación de un plan de pensiones?"
+    gold: [RPFP art. 8]
+    answer: "A partir de los 60 años, si las especificaciones lo prevén y concurren las condiciones del reglamento."
+  - id: rpf-03
+    category: single
+    question: "¿Puedo rescatar mi plan de pensiones si estoy en paro de larga duración?"
+    gold: [RPFP art. 9]
+    answer: "Sí, el desempleo de larga duración y la enfermedad grave son supuestos excepcionales de liquidez en las condiciones del reglamento."
+  - id: rpf-04
+    category: single
+    question: "¿Puede ser alguien a la vez partícipe y beneficiario por la misma contingencia en un plan de pensiones?"
+    gold: [RPFP art. 11]
+    answer: "Con carácter general no; es incompatible simultanear ambas condiciones por una misma contingencia, salvo las excepciones reglamentarias."
+  - id: rpf-05
+    category: single
+    question: "¿Qué clases de planes de pensiones hay según las obligaciones estipuladas?"
+    gold: [RPFP art. 16]
+    answer: "De aportación definida, de prestación definida y mixtos."
+  - id: rpf-06
+    category: single
+    question: "¿Quién es titular de los recursos de un plan de pensiones?"
+    gold: [RPFP art. 17]
+    answer: "Los partícipes y beneficiarios; los activos del fondo les corresponden colectiva y proporcionalmente."
+  - id: rpf-07
+    category: single
+    question: "¿Qué funciones tiene la comisión de control de un plan de pensiones de empleo?"
+    gold: [RPFP art. 29]
+    answer: "Supervisar el cumplimiento de las cláusulas del plan, seleccionar al actuario y designar al actuario independiente, proponer modificaciones y nombrar representantes, entre otras."
+  - id: rpf-08
+    category: single
+    question: "¿Qué documento debe entregarse a quien va a contratar un plan de pensiones individual?"
+    gold: [RPFP art. 48]
+    answer: "El documento con los datos fundamentales para el partícipe elaborado por la entidad gestora."
+  - id: rpf-09
+    category: single
+    question: "¿Cuándo se considera no discriminatorio un plan del sistema asociado?"
+    gold: [RPFP art. 52]
+    answer: "Cuando todos los asociados de la entidad promotora pueden acceder al plan en igualdad de condiciones y derechos."
+  - id: rpf-10
+    category: single
+    question: "¿En qué plazo deben resolverse las solicitudes de autorización previstas en el reglamento de planes y fondos de pensiones?"
+    gold: [RPFP DA 2]
+    answer: "En tres meses desde su presentación, salvo disposición específica."
+  - id: rpf-11
+    category: single
+    question: "¿Puede una entidad gestora contratar a terceros la gestión de los activos de los fondos?"
+    gold: [RPFP art. 86]
+    answer: "Sí, con entidades de inversión autorizadas y conforme a lo establecido en ese capítulo del reglamento."
+
+  # --- LRCSCVM: Real Decreto Legislativo 8/2004 -------------------------------------------------
+  - id: rcv-01
+    category: single
+    question: "¿Responde el conductor de los daños causados en un accidente de tráfico aunque no tenga culpa?"
+    gold: [LRCSCVM art. 1]
+    answer: "En daños a las personas responde por el riesgo creado, salvo culpa exclusiva del perjudicado o fuerza mayor ajena al vehículo; en daños a los bienes responde cuando haya culpa o negligencia."
+  - id: rcv-02
+    category: single
+    question: "¿Quién está obligado a contratar el seguro obligatorio de un coche?"
+    gold: [LRCSCVM art. 2]
+    answer: "Todo propietario de vehículos a motor con estacionamiento habitual en España, un contrato por cada vehículo."
+  - id: rcv-03
+    category: single
+    question: "¿Qué consecuencias tiene circular con un vehículo sin seguro obligatorio?"
+    gold: [LRCSCVM art. 3]
+    answer: "Prohibición de circular, depósito o precinto del vehículo a cargo del propietario y sanción pecuniaria."
+  - id: rcv-04
+    category: single
+    question: "¿Cubre el seguro obligatorio las lesiones del propio conductor causante del accidente?"
+    gold: [LRCSCVM art. 5]
+    answer: "No, no alcanza a los daños por lesiones o fallecimiento del conductor del vehículo causante."
+  - id: rcv-05
+    category: single
+    question: "¿En qué plazo debe la aseguradora presentar una oferta motivada de indemnización tras la reclamación del perjudicado?"
+    gold: [LRCSCVM art. 7]
+    answer: "En el plazo de tres meses desde la recepción de la reclamación; si no puede, debe dar una respuesta motivada."
+  - id: rcv-06
+    category: single
+    question: "¿Contra quién puede repetir la aseguradora del automóvil tras pagar la indemnización?"
+    gold: [LRCSCVM art. 10]
+    answer: "Contra el conductor, el propietario y el asegurado si el daño se debió a conducta dolosa o conducción bajo alcohol o drogas, contra el tercero responsable y en los demás casos legales."
+  - id: rcv-07
+    category: single
+    question: "¿Quién paga los daños causados por un vehículo sin seguro o desconocido?"
+    gold: [LRCSCVM art. 11]
+    answer: "El Consorcio de Compensación de Seguros, dentro de los límites del aseguramiento obligatorio."
+  - id: rcv-08
+    category: single
+    question: "¿Cuáles son los principios fundamentales del baremo de tráfico?"
+    gold: [LRCSCVM art. 33]
+    answer: "La reparación íntegra del daño y su reparación vertebrada."
+  - id: rcv-09
+    category: single
+    question: "En el baremo de tráfico, ¿cómo se puntúan dos secuelas concurrentes?"
+    gold: [LRCSCVM art. 98]
+    answer: "Con la fórmula [(100 − M) × m] / 100 + M, siendo M la puntuación de la secuela mayor y m la de la menor."
+  - id: rcv-10
+    category: single
+    question: "¿Cómo se calcula el lucro cesante de los perjudicados por un fallecimiento en accidente de tráfico?"
+    gold: [LRCSCVM art. 81]
+    answer: "Multiplicando los ingresos netos de la víctima por el coeficiente actuarial que corresponda a cada perjudicado."
+  - id: rcv-11
+    category: single
+    question: "¿Qué indemnización corresponde al perjudicado familiar único en caso de muerte?"
+    gold: [LRCSCVM art. 72]
+    answer: "Un incremento del 25 % de la indemnización por perjuicio personal básico."
+  - id: rcv-12
+    category: single
+    question: "¿Cómo se indemnizan las intervenciones quirúrgicas en lesiones temporales por accidente de tráfico?"
+    gold: [LRCSCVM art. 140]
+    answer: "Con una cantidad entre el mínimo y el máximo de la tabla 3.B según la operación, la técnica y el tipo de anestesia."
+
+  # --- RSOA: Real Decreto 1507/2008 ------------------------------------------------------------
+  - id: rso-01
+    category: single
+    question: "¿A quién se presume propietario de un vehículo a efectos del seguro obligatorio?"
+    gold: [RSOA art. 4]
+    answer: "A la persona natural o jurídica a cuyo nombre figure el vehículo en el registro público que corresponda."
+  - id: rso-02
+    category: single
+    question: "¿Durante cuánto tiempo cubre la solicitud del seguro obligatorio una vez sellada por la aseguradora?"
+    gold: [RSOA art. 12]
+    answer: "Produce efectos de cobertura durante quince días."
+  - id: rso-03
+    category: single
+    question: "¿Cómo comprueba la policía que un vehículo tiene seguro en vigor?"
+    gold: [RSOA art. 14]
+    answer: "Mediante consulta al Fichero Informativo de Vehículos Asegurados o, en su defecto, con el justificante de pago de la prima."
+  - id: rso-04
+    category: single
+    question: "¿Quién expide el certificado de siniestralidad de un conductor?"
+    gold: [RSOA art. 9]
+    answer: "Las entidades aseguradoras directamente o mediante los ficheros comunes del sector."
+  - id: rso-05
+    category: single
+    question: "¿Qué datos debe contener como mínimo la solicitud del seguro obligatorio del automóvil?"
+    gold: [RSOA art. 11]
+    answer: "Entre otros, la identificación del propietario, del conductor habitual y del tomador, y los datos del vehículo."
+  - id: rso-06
+    category: single
+    question: "¿Qué seguro hay que contratar para una prueba deportiva con vehículos a motor en un circuito?"
+    gold: [RSOA DA 2]
+    answer: "Un seguro especial que cubra la responsabilidad civil de los conductores intervinientes por los importes del seguro obligatorio."
+  - id: rso-07
+    category: single
+    question: "¿Quién decide la retirada y depósito de un vehículo que circula sin seguro?"
+    gold: [RSOA art. 7]
+    answer: "Las Jefaturas de Tráfico y las autoridades autonómicas competentes."
+  - id: rso-08
+    category: single
+    question: "Si varios perjudicados de un mismo accidente superan entre todos el límite del seguro obligatorio, ¿cómo se reparte?"
+    gold: [RSOA art. 19]
+    answer: "El derecho de cada perjudicado se reduce proporcionalmente a los daños sufridos."
+
+  # --- ELCCS: Real Decreto Legislativo 7/2004 -----------------------------------------------------
+  - id: ccs-01
+    category: single
+    question: "¿Qué naturaleza jurídica tiene el Consorcio de Compensación de Seguros?"
+    gold: [ELCCS art. 1]
+    answer: "Entidad pública empresarial con personalidad jurídica propia y plena capacidad de obrar."
+  - id: ccs-02
+    category: single
+    question: "¿Quién preside el Consorcio de Compensación de Seguros?"
+    gold: [ELCCS art. 4]
+    answer: "El Director General de Seguros y Fondos de Pensiones."
+  - id: ccs-03
+    category: single
+    question: "¿En qué ramos es obligatorio el recargo a favor del Consorcio por riesgos extraordinarios?"
+    gold: [ELCCS art. 7]
+    answer: "Entre otros, vida y accidentes en seguros de personas, y en daños los ramos de vehículos terrestres y ferroviarios, incendio, otros daños a los bienes y pérdidas pecuniarias."
+  - id: ccs-04
+    category: single
+    question: "¿Cuándo paga el Consorcio indemnizaciones por acontecimientos extraordinarios?"
+    gold: [ELCCS art. 8]
+    answer: "A asegurados que hayan pagado el recargo cuando el riesgo extraordinario no esté amparado por póliza o, estándolo, la aseguradora no pueda cumplir por estar en concurso o en liquidación intervenida o asumida por el Consorcio."
+  - id: ccs-05
+    category: single
+    question: "¿Asume el Consorcio la cobertura de riesgos nucleares?"
+    gold: [ELCCS art. 9]
+    answer: "Sí; si las aseguradoras no alcanzan el límite mínimo de responsabilidad legal, el Consorcio asume la diferencia, y además actúa como reasegurador."
+  - id: ccs-06
+    category: single
+    question: "¿Puede el Consorcio actuar como liquidador de una aseguradora?"
+    gold: [ELCCS art. 14]
+    answer: "Sí, asume la condición de liquidador de las aseguradoras cuando se le encomiende conforme a la Ley 20/2015."
+  - id: ccs-07
+    category: single
+    question: "¿Qué recargos se cobran a favor del Consorcio?"
+    gold: [ELCCS art. 18]
+    answer: "El recargo de riesgos extraordinarios, el del seguro obligatorio de automóviles y el destinado a financiar la liquidación de entidades aseguradoras."
+  - id: ccs-08
+    category: single
+    question: "¿Qué recursos económicos tiene el Consorcio?"
+    gold: [ELCCS art. 23]
+    answer: "Primas y recargos, subvenciones estatales, cantidades recuperadas por repetición e intereses de demora, productos de su patrimonio y operaciones financieras, entre otros."
+
+  # --- RSRE: Real Decreto 300/2004 ------------------------------------------------------------
+  - id: rre-01
+    category: single
+    question: "¿Qué se considera inundación extraordinaria a efectos del Consorcio?"
+    gold: [RSRE art. 2]
+    answer: "El anegamiento del terreno por la acción directa de aguas de lluvia, deshielo, lagos con salida natural, ríos, rías o cursos naturales desbordados, y los embates de mar; no la producida por presas, canales o alcantarillas."
+  - id: rre-02
+    category: single
+    question: "¿Cubre el Consorcio la pérdida de beneficios causada por un terremoto?"
+    gold: [RSRE art. 3]
+    answer: "Sí, cuando el acontecimiento extraordinario altera los resultados normales de la actividad y la póliza ordinaria cubre la pérdida de beneficios."
+  - id: rre-03
+    category: single
+    question: "¿Qué daños quedan excluidos de la cobertura del Consorcio por riesgos extraordinarios?"
+    gold: [RSRE art. 6]
+    answer: "Entre otros, los que no den lugar a indemnización según la Ley de Contrato de Seguro y los de bienes asegurados en pólizas sin recargo obligatorio."
+  - id: rre-04
+    category: single
+    question: "¿Existe un plazo de carencia en el seguro de riesgos extraordinarios?"
+    gold: [RSRE art. 8]
+    answer: "Sí, no se cubren los daños por fenómenos de la naturaleza si la póliza no se emitió o entró en vigor al menos siete días naturales antes del siniestro, con excepciones."
+  - id: rre-05
+    category: single
+    question: "¿Se aplica franquicia en los seguros de personas cubiertos por el Consorcio?"
+    gold: [RSRE art. 9]
+    answer: "No, en los seguros de personas no se efectúa deducción por franquicia."
+  - id: rre-06
+    category: single
+    question: "¿Está obligado el Consorcio a respetar la valoración de daños hecha por la aseguradora ordinaria?"
+    gold: [RSRE art. 10]
+    answer: "No, el Consorcio valora las pérdidas sin quedar vinculado por las valoraciones de la entidad aseguradora."
+  - id: rre-07
+    category: single
+    question: "¿Se consideran daños cubiertos los gastos de extracción de lodos y desescombro?"
+    gold: [RSRE art. 7]
+    answer: "Sí, se consideran daños al continente asegurado."
+
+  # --- Literal references -----------------------------------------------------------------------
+  - id: lit-01
+    category: literal
+    question: "¿Qué dice el artículo 23 de la Ley 50/1980?"
+    gold: [LCS art. 23]
+    answer: "Prescripción de dos años en seguros de daños y cinco en seguros de personas."
+  - id: lit-02
+    category: literal
+    question: "Resume el artículo 10 de la LCS."
+    gold: [LCS art. 10]
+    answer: "Deber de declaración del riesgo por el tomador conforme al cuestionario y consecuencias de la reserva o inexactitud."
+  - id: lit-03
+    category: literal
+    question: "¿Qué regula el artículo 20.4 de la Ley de Contrato de Seguro?"
+    gold: [LCS art. 20]
+    answer: "La cuantía de la indemnización por mora: interés legal incrementado en un 50 %, no inferior al 20 % tras dos años."
+  - id: lit-04
+    category: literal
+    question: "¿Qué establece el artículo 78 de la Ley 20/2015?"
+    gold: [LOSSEAR art. 78]
+    answer: "El capital mínimo obligatorio y su cálculo."
+  - id: lit-05
+    category: literal
+    question: "Explícame el artículo 33 de la LOSSEAR."
+    gold: [LOSSEAR art. 33]
+    answer: "Capitales sociales mínimos de sociedades anónimas y cooperativas de seguros según los ramos."
+  - id: lit-06
+    category: literal
+    question: "¿De qué trata el artículo 65 del ROSSEAR?"
+    gold: [ROSSEAR art. 65]
+    answer: "Exigencia de capital de solvencia obligatorio adicional."
+  - id: lit-07
+    category: literal
+    question: "¿Qué dice la disposición transitoria cuarta del RDL 3/2020?"
+    gold: [RDL 3/2020 DT 4]
+    answer: "Que el título I del libro segundo no se aplica a contratos anteriores salvo novación extintiva."
+  - id: lit-08
+    category: literal
+    question: "¿Qué regula el artículo 139 del Real Decreto-ley 3/2020?"
+    gold: [RDL 3/2020 art. 139]
+    answer: "Requisitos de los empleados de entidades aseguradoras que participan en la distribución de seguros."
+  - id: lit-09
+    category: literal
+    question: "¿Qué recoge el artículo 8 del Real Decreto 304/2004?"
+    gold: [RPFP art. 8]
+    answer: "La anticipación de la prestación de jubilación a partir de los 60 años."
+  - id: lit-10
+    category: literal
+    question: "¿Qué establece el artículo 20 del texto refundido de la Ley de Planes y Fondos de Pensiones?"
+    gold: [TRLPFP art. 20]
+    answer: "Requisitos de las entidades gestoras de fondos de pensiones, entre ellos un capital mínimo de 600.000 euros."
+  - id: lit-11
+    category: literal
+    question: "¿Qué dice el artículo 9 del Real Decreto Legislativo 8/2004?"
+    gold: [LRCSCVM art. 9]
+    answer: "La mora del asegurador en el seguro de automóviles, que se rige por el artículo 20 de la LCS con particularidades."
+  - id: lit-12
+    category: literal
+    question: "¿Qué regula el artículo 16 del Real Decreto 1507/2008?"
+    gold: [RSOA art. 16]
+    answer: "Que no se devengan intereses de mora sobre la cantidad ofrecida y consignada en la oferta motivada."
+  - id: lit-13
+    category: literal
+    question: "¿Qué establece el artículo 6 del Estatuto Legal del Consorcio de Compensación de Seguros?"
+    gold: [ELCCS art. 6]
+    answer: "El objeto del Consorcio en materia de riesgos extraordinarios sobre personas y bienes."
+  - id: lit-14
+    category: literal
+    question: "¿Qué dice el artículo 4 del Real Decreto 300/2004?"
+    gold: [RSRE art. 4]
+    answer: "Las pólizas en las que es obligatorio el recargo a favor del Consorcio."
+  - id: lit-15
+    category: literal
+    question: "¿Qué recoge la disposición adicional duodécima del RDL 3/2020?"
+    gold: [RDL 3/2020 DA 12]
+    answer: "Requisitos y principios básicos de los programas de formación de los distribuidores de seguros."
+
+  # --- Cross-norm questions -----------------------------------------------------------------------
+  - id: cross-01
+    category: cross
+    question: "¿Cuándo puede la DGSFP exigir capital de solvencia adicional y qué procedimiento sigue?"
+    gold: [LOSSEAR art. 76, ROSSEAR art. 66]
+    answer: "Con carácter excepcional y mediante resolución motivada tras la supervisión (Ley 20/2015); se tramita un procedimiento administrativo según el reglamento."
+  - id: cross-02
+    category: cross
+    question: "¿Qué normas de inversión deben cumplir las aseguradoras según la ley y su reglamento?"
+    gold: [LOSSEAR art. 79, ROSSEAR art. 89]
+    answer: "El principio de prudencia: invertir en activos cuyos riesgos puedan identificar, medir, vigilar, gestionar y controlar, con los requisitos que desarrolla el reglamento."
+  - id: cross-03
+    category: cross
+    question: "¿Qué aseguradoras pueden acogerse al régimen especial de solvencia y quién lo autoriza?"
+    gold: [LOSSEAR art. 101, ROSSEAR art. 128]
+    answer: "Entidades domiciliadas en España sin actividad en otros Estados que hayan cumplido durante tres años las condiciones reglamentarias (entre ellas primas no superiores a 5,4 millones y provisiones técnicas no superiores a 26,6 millones de euros); requiere autorización previa de la DGSFP."
+  - id: cross-04
+    category: cross
+    question: "¿Qué contingencias cubren los planes de pensiones según la ley y cómo las desarrolla el reglamento?"
+    gold: [TRLPFP art. 8, RPFP art. 7]
+    answer: "Jubilación, incapacidad, fallecimiento y dependencia, con el desarrollo reglamentario de cada contingencia."
+  - id: cross-05
+    category: cross
+    question: "¿En qué supuestos excepcionales se puede disponer anticipadamente del dinero de un plan de pensiones?"
+    gold: [TRLPFP art. 8, RPFP art. 9]
+    answer: "Enfermedad grave y desempleo de larga duración, además de los supuestos de liquidez de aportaciones con antigüedad previstos en la ley."
+  - id: cross-06
+    category: cross
+    question: "¿Qué requisitos debe cumplir una entidad gestora de fondos de pensiones y cómo se autoriza?"
+    gold: [TRLPFP art. 20, RPFP art. 79]
+    answer: "Sociedad anónima con capital mínimo de 600.000 euros y demás requisitos legales; necesita autorización administrativa previa e inscripción en el registro especial."
+  - id: cross-07
+    category: cross
+    question: "¿En qué plazo debe la aseguradora del coche hacer la oferta motivada y qué efecto tiene sobre los intereses de demora?"
+    gold: [LRCSCVM art. 7, RSOA art. 16]
+    answer: "Tres meses desde la reclamación; no se devengan intereses de mora sobre la cantidad ofrecida y consignada."
+  - id: cross-08
+    category: cross
+    question: "¿Qué pasa si circulo sin seguro obligatorio y quién ordena el depósito del vehículo?"
+    gold: [LRCSCVM art. 3, RSOA art. 7]
+    answer: "Prohibición de circular, depósito o precinto y sanción; el depósito lo acuerdan las Jefaturas de Tráfico o las autoridades autonómicas competentes."
+  - id: cross-09
+    category: cross
+    question: "¿Cómo se calculan los intereses de demora de la aseguradora del automóvil?"
+    gold: [LRCSCVM art. 9, LCS art. 20]
+    answer: "Conforme al artículo 20 de la Ley de Contrato de Seguro, con las particularidades del artículo 9 del texto refundido."
+  - id: cross-10
+    category: cross
+    question: "¿En qué casos paga el Consorcio por riesgos extraordinarios y qué daños excluye?"
+    gold: [ELCCS art. 8, RSRE art. 6]
+    answer: "Paga a asegurados con recargo cuando el riesgo no está cubierto por otra póliza o la aseguradora no puede cumplir; excluye, entre otros, los daños no indemnizables según la LCS."
+  - id: cross-11
+    category: cross
+    question: "¿En qué pólizas es obligatorio el recargo a favor del Consorcio según el estatuto y el reglamento?"
+    gold: [ELCCS art. 7, RSRE art. 4]
+    answer: "En los ramos de personas (vida y accidentes) y de daños (vehículos, incendio, otros daños a bienes, pérdidas pecuniarias) que enumeran ambas normas."
+  - id: cross-12
+    category: cross
+    question: "¿Quién liquida las aseguradoras en dificultades y qué ocurre con sus órganos sociales?"
+    gold: [ELCCS art. 14, LOSSEAR art. 184]
+    answer: "El Consorcio de Compensación de Seguros, que sustituye a todos los órganos sociales de la entidad en liquidación."
+  - id: cross-13
+    category: cross
+    question: "¿Qué requisitos de formación deben cumplir los empleados de aseguradoras que distribuyen seguros mientras no se apruebe la normativa de desarrollo?"
+    gold: [RDL 3/2020 art. 139, RDL 3/2020 DF 15]
+    answer: "Los requisitos mínimos de competencia y conocimientos del anexo XII, según la disposición final decimoquinta, hasta el desarrollo del artículo 139.2."
+  - id: cross-14
+    category: cross
+    question: "¿Qué diferencia hay entre un agente de seguros y un corredor de seguros?"
+    gold: [RDL 3/2020 art. 140, RDL 3/2020 art. 155]
+    answer: "El agente actúa por cuenta de una o varias aseguradoras mediante contrato de agencia; el corredor ofrece asesoramiento independiente sin vínculos con aseguradoras."
+  - id: cross-15
+    category: cross
+    question: "¿Qué cubre el seguro de defensa jurídica y qué exige el reglamento a la aseguradora que lo ofrece?"
+    gold: [LCS art. 76 a, ROSSEAR art. 12]
+    answer: "Gastos de procedimientos y asistencia jurídica; la aseguradora debe justificar en su programa de actividades la capacidad para prestar el servicio."
+  - id: cross-16
+    category: cross
+    question: "¿Tiene el perjudicado de un accidente de tráfico acción directa contra la aseguradora y cuál es el régimen general?"
+    gold: [LRCSCVM art. 7, LCS art. 76]
+    answer: "Sí; el texto refundido de tráfico reconoce la acción directa, que en el régimen general del seguro de responsabilidad civil prevé el artículo 76 de la LCS."
+  - id: cross-17
+    category: cross
+    question: "¿Cómo valora el Consorcio los siniestros extraordinarios y qué papel tienen los peritos?"
+    gold: [RSRE art. 10, ELCCS art. 20]
+    answer: "Valora las pérdidas sin quedar vinculado por la valoración de la aseguradora; la tramitación aplica con peculiaridades el régimen de peritos del artículo 38 de la LCS."
+  - id: cross-18
+    category: cross
+    question: "¿Qué capital social mínimo necesita una aseguradora de vida y qué infracción comete si no cubre el capital mínimo obligatorio?"
+    gold: [LOSSEAR art. 33, LOSSEAR art. 194]
+    answer: "9.015.000 euros en el ramo de vida; no disponer del capital mínimo obligatorio es infracción muy grave."
+  - id: cross-19
+    category: cross
+    question: "¿Qué régimen transitorio tuvieron los mediadores ya inscritos cuando entró en vigor la normativa de distribución y dónde se inscriben ahora?"
+    gold: [RDL 3/2020 DT 3, RDL 3/2020 art. 133]
+    answer: "No tuvieron que registrarse de nuevo; por ejemplo, los agentes exclusivos siguieron inscritos en el registro de distribuidores de seguros y reaseguros que lleva la DGSFP o la comunidad autónoma."
+  - id: cross-20
+    category: cross
+    question: "¿Qué es el contrato de seguro y qué seguros sobre las personas regula la ley?"
+    gold: [LCS art. 1, LCS art. 80]
+    answer: "Contrato por el que el asegurador, mediante una prima, indemniza el daño o satisface capitales o rentas; el seguro de personas cubre riesgos sobre la existencia, integridad o salud del asegurado."
+
+  # --- Out of scope: the assistant must answer "No consta en la normativa indexada" -----------------
+  - id: oos-01
+    category: out_of_scope
+    question: "¿Cuál es el tipo general del IVA en España?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-02
+    category: out_of_scope
+    question: "¿Cuántos días de vacaciones tiene un trabajador según el Estatuto de los Trabajadores?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-03
+    category: out_of_scope
+    question: "¿Qué fianza hay que depositar en un contrato de alquiler de vivienda?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-04
+    category: out_of_scope
+    question: "¿Cuál es el capital social mínimo de una sociedad limitada?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-05
+    category: out_of_scope
+    question: "¿Qué pena establece el Código Penal para el delito de estafa?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-06
+    category: out_of_scope
+    question: "¿Cómo se calcula la base reguladora de la pensión de jubilación de la Seguridad Social?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-07
+    category: out_of_scope
+    question: "¿Qué plazo hay para presentar el Impuesto sobre Sucesiones?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-08
+    category: out_of_scope
+    question: "¿Qué requisitos exige el Reglamento MiCA a los emisores de criptoactivos?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-09
+    category: out_of_scope
+    question: "¿Cuántos puntos se pierden del carné por conducir usando el móvil?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-10
+    category: out_of_scope
+    question: "¿Qué dice el artículo 300 de la Ley de Contrato de Seguro?"
+    gold: []
+    answer: "No consta en la normativa indexada (la LCS no tiene artículo 300)."
+  - id: oos-11
+    category: out_of_scope
+    question: "¿Qué establece la disposición adicional trigésima de la Ley 20/2015?"
+    gold: []
+    answer: "No consta en la normativa indexada (no existe esa disposición)."
+  - id: oos-12
+    category: out_of_scope
+    question: "¿Qué regula el artículo 2 del Real Decreto-ley 3/2020 sobre contratación pública?"
+    gold: []
+    answer: "No consta en la normativa indexada (el libro primero del RDL 3/2020 no está indexado)."
+  - id: oos-13
+    category: out_of_scope
+    question: "¿Cuál es el plazo de garantía de un producto nuevo comprado por un consumidor?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-14
+    category: out_of_scope
+    question: "¿Qué es una hipoteca multidivisa y qué protección tiene el consumidor?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-15
+    category: out_of_scope
+    question: "¿Cuál es el horario máximo de apertura de los comercios en domingo?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-16
+    category: out_of_scope
+    question: "¿Qué sanciones prevé el Reglamento General de Protección de Datos?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-17
+    category: out_of_scope
+    question: "¿Qué exige el artículo 101 de la Directiva 2009/138/CE?"
+    gold: []
+    answer: "No consta en la normativa indexada (la normativa UE se incorpora en la fase 2)."
+  - id: oos-18
+    category: out_of_scope
+    question: "¿Cómo tributan los rendimientos de un plan de ahorro sistemático en el IRPF?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-19
+    category: out_of_scope
+    question: "¿Qué requisitos tiene que cumplir un dron para volar en zona urbana?"
+    gold: []
+    answer: "No consta en la normativa indexada."
+  - id: oos-20
+    category: out_of_scope
+    question: "¿Cuál es la cuantía del salario mínimo interprofesional en 2026?"
+    gold: []
+    answer: "No consta en la normativa indexada."
