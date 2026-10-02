@@ -56,6 +56,7 @@ def chunk_provision(
                 norm_id=spec.id,
                 norm_short_name=spec.short_name,
                 block_id=provision.block_id,
+                seq=seq,
                 kind=provision.kind,
                 label=provision.label,
                 number=provision.number,

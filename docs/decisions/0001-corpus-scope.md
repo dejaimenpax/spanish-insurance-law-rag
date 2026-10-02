@@ -52,6 +52,13 @@ The scope is declared in `src/insurance_rag/corpus/catalog.yaml` and checked by 
 test on the catalog and a network test that resolves it against the live text (article 127 in,
 article 212 out).
 
+### Amending final provisions
+
+Final provisions whose rubric is "Modificación de/del …" are not indexed (about twenty across
+LOSSEAR and ROSSEAR). Their wording is either already consolidated into the amended norm, which
+is indexed in force, or belongs to a norm outside the corpus (tax laws, the repealed Ley
+26/2006), so indexing it would surface duplicated or outdated text.
+
 ### Preambles
 
 Preambles (exposiciones de motivos) are not indexed in phase 1: they are not normative and

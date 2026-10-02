@@ -72,6 +72,14 @@ def test_builds_hierarchy_numbers_and_rubrics(synthetic_xml: bytes) -> None:
     assert annex.heading == "Tablas de prueba"
 
 
+def test_skips_final_provisions_that_amend_other_norms(synthetic_xml: bytes) -> None:
+    provisions = build_provisions(
+        _spec(), parse_blocks(synthetic_xml), block_updates={}, as_of=AS_OF
+    )
+
+    assert "dfprimera" not in {p.block_id for p in provisions}
+
+
 def test_marks_repealed_and_drops_expired_blocks(synthetic_xml: bytes) -> None:
     provisions = {
         p.block_id: p

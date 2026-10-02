@@ -131,6 +131,8 @@ class Chunk(BaseModel):
     norm_id: str
     norm_short_name: str
     block_id: str
+    seq: int = 0
+    """Position of the chunk within its provision."""
     kind: ProvisionKind
     label: str
     number: str | None

@@ -40,6 +40,9 @@ _PROVISION_KINDS: tuple[tuple[str, ProvisionKind], ...] = (
 # Heading that opens the text approved by a "por el que se aprueba ..." instrument.
 _APPROVED_TEXT_MARKERS = ("texto", "reglamento")
 _SKIPPED_BLOCK_TYPES = frozenset({"preambulo", "firma", "nota_inicial"})
+# Final provisions that amend another norm: their wording already lives, consolidated, in the
+# amended norm (or in one outside the corpus), so indexing them duplicates or misleads.
+_AMENDING_RUBRIC = re.compile(r"^modificacion(es)? (de|del)\b")
 _REPEALED = re.compile(
     r"^\(?\s*(derogad[oa]s?|sin contenido|suprimid[oa]s?|anulad[oa]s?|queda(n)? derogad[oa]s?)\b",
     re.IGNORECASE,
@@ -100,6 +103,21 @@ def select_in_scope(spec: NormSpec, blocks: Sequence[RawBlock]) -> list[RawBlock
     return [b for i, b in enumerate(candidates) if start <= i < end or b.block_id in extra]
 
 
+def next_scheduled_change(spec: NormSpec, blocks: Sequence[RawBlock], as_of: date) -> date | None:
+    """Earliest date after ``as_of`` on which an in-scope block changes wording or expires.
+
+    The index only changes when the BOE publishes something new, but an already published
+    amendment can come into force later; re-ingestion must happen on that date too.
+    """
+    upcoming = [
+        d
+        for block in select_in_scope(spec, blocks)
+        for d in (*(v.in_force_since for v in block.versions), block.expired_on)
+        if d is not None and d > as_of
+    ]
+    return min(upcoming, default=None)
+
+
 def build_provisions(
     spec: NormSpec,
     blocks: Sequence[RawBlock],
@@ -144,6 +162,13 @@ def build_provisions(
         heading = _rubric(label, parsed.label_line)
         if kind is ProvisionKind.ANEXO:
             heading, paragraphs = _annex_heading(label, paragraphs)
+        if (
+            kind is ProvisionKind.DISPOSICION_FINAL
+            and heading
+            and _AMENDING_RUBRIC.match(normalize(heading))
+        ):
+            log.debug("structure.skip_amending_provision", norm=spec.id, block=block.block_id)
+            continue
 
         provisions.append(
             Provision(

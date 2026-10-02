@@ -84,6 +84,12 @@
           <p class="parrafo">Texto de la disposición adicional.</p>
         </version>
       </bloque>
+      <bloque id="dfprimera" tipo="precepto" titulo="Disposición final primera">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Disposición final primera. Modificación de la Ley de prueba 9/1999.</p>
+          <p class="parrafo">Se modifica el artículo 3 de la Ley de prueba 9/1999.</p>
+        </version>
+      </bloque>
       <bloque id="an" tipo="encabezado" titulo="ANEXO">
         <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
           <p class="anexo_num">ANEXO</p>
