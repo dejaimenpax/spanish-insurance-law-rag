@@ -139,6 +139,59 @@ def search(
     typer.echo(f"timings (ms): {result.timings_ms}")
 
 
+@app.command()
+def ask(
+    question: str,
+    norm: Annotated[list[str] | None, typer.Option(help="Restrict to these norm ids.")] = None,
+) -> None:
+    """Answer a question in the terminal, streaming the text and listing the cited sources."""
+    import asyncio
+
+    from insurance_rag.config import get_settings
+    from insurance_rag.generation.answer import (
+        CitationEvent,
+        DeltaEvent,
+        DoneEvent,
+        SourcesEvent,
+        WarningEvent,
+    )
+    from insurance_rag.index.qdrant_store import ChunkFilter
+    from insurance_rag.observability.logging import configure_logging
+    from insurance_rag.wiring import build_answer_service, build_retriever
+
+    settings = get_settings()
+    configure_logging("WARNING", json=False)
+    service = build_answer_service(settings, build_retriever(settings))
+
+    async def run() -> None:
+        sources = []
+        async for event in service.stream(
+            question, chunk_filter=ChunkFilter(norm_ids=tuple(norm or ()))
+        ):
+            if isinstance(event, SourcesEvent):
+                sources = event.sources
+            elif isinstance(event, DeltaEvent):
+                typer.echo(event.text, nl=False)
+            elif isinstance(event, CitationEvent):
+                typer.echo(f" [{event.citation.source_index + 1}]", nl=False)
+            elif isinstance(event, WarningEvent):
+                typer.secho(f"\n⚠ {event.message}", fg="yellow")
+            elif isinstance(event, DoneEvent):
+                typer.echo("\n")
+                for i in event.cited_sources:
+                    s = sources[i]
+                    typer.echo(
+                        f"[{i + 1}] {s.citation} (consolidado a {s.consolidated_as_of}) {s.url}"
+                    )
+                typer.secho(
+                    f"\n{event.model} · {event.usage} · ${event.cost_usd} · "
+                    f"{event.timings_ms.get('total')} ms",
+                    dim=True,
+                )
+
+    asyncio.run(run())
+
+
 eval_app = typer.Typer(help="Evaluation commands.", no_args_is_help=True)
 app.add_typer(eval_app, name="eval")
 DEFAULT_DATASET = "eval/questions.yaml"

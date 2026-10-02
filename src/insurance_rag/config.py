@@ -34,6 +34,17 @@ class Settings(BaseSettings):
     retrieval_candidates: int = 50
     """Candidates fetched from each of the dense and sparse searches before fusion."""
 
+    llm_model: str = "claude-opus-5-5"
+    llm_effort: Literal["low", "medium", "high", "xhigh", "max"] = "medium"
+    llm_max_tokens: int = 16000
+    answer_top_k: int = 8
+    """Retrieved chunks passed to the model."""
+    abstain_below: float | None = None
+    """Best reranker score under which the assistant abstains without calling the model."""
+
+    query_log: bool = True
+    """Append one JSON line per answered question to data/queries.jsonl."""
+
     @property
     def raw_dir(self) -> Path:
         return self.data_dir / "raw"

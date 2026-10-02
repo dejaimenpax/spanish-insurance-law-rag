@@ -19,6 +19,12 @@ log = structlog.get_logger(__name__)
 REFERENCE_SCORE = 1.0
 
 
+class SupportsRetrieve(Protocol):
+    def retrieve(
+        self, query: str, *, k: int = ..., chunk_filter: ChunkFilter | None = ...
+    ) -> "RetrievalResult": ...
+
+
 class Reranker(Protocol):
     def rerank(self, query: str, chunks: Sequence[Chunk]) -> list[float]: ...
 

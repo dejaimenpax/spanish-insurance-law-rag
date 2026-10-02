@@ -1,5 +1,7 @@
 """Build application components from settings."""
 
+from typing import TYPE_CHECKING
+
 from insurance_rag.config import Settings
 from insurance_rag.corpus.catalog import load_catalog
 from insurance_rag.embeddings.sentence_transformer import SentenceTransformerEmbedder
@@ -8,6 +10,9 @@ from insurance_rag.index.qdrant_store import QdrantStore
 from insurance_rag.ingestion.state import IngestionState
 from insurance_rag.retrieval.references import ReferenceParser
 from insurance_rag.retrieval.service import Reranker, Retriever
+
+if TYPE_CHECKING:
+    from insurance_rag.generation.answer import AnswerService
 
 
 def build_store(settings: Settings) -> QdrantStore:
@@ -41,6 +46,26 @@ def build_reranker(settings: Settings) -> Reranker | None:
         settings.reranker_model,
         device=settings.embedding_device,
         max_length=settings.reranker_max_length,
+    )
+
+
+def build_answer_service(settings: Settings, retriever: Retriever) -> "AnswerService":
+    from insurance_rag.generation.answer import AnswerService
+    from insurance_rag.generation.llm import ClaudeClient
+
+    if settings.anthropic_api_key is None:
+        raise RuntimeError("ANTHROPIC_API_KEY is not set (copy .env.example to .env)")
+    llm = ClaudeClient(
+        api_key=settings.anthropic_api_key.get_secret_value(),
+        model=settings.llm_model,
+        effort=settings.llm_effort,
+        max_tokens=settings.llm_max_tokens,
+    )
+    return AnswerService(
+        retriever=retriever,
+        llm=llm,
+        top_k=settings.answer_top_k,
+        abstain_below=settings.abstain_below,
     )
 
 
