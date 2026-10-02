@@ -14,6 +14,9 @@ dependencies = [
     "pydantic-settings>=2.6",
     "structlog>=24.4",
     "typer>=0.27.2",
+    "httpx>=0.28.1",
+    "defusedxml>=0.7.1",
+    "pyyaml>=6.0.3",
 ]
 
 [project.scripts]
@@ -27,6 +30,8 @@ dev = [
     "pytest>=8.3",
     "pytest-asyncio>=0.24",
     "ruff>=0.8",
+    "types-defusedxml>=0.7.0.20260504",
+    "types-pyyaml>=6.0.12.20260906",
 ]
 
 [build-system]

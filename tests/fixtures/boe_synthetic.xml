@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Synthetic document shaped like a BOE consolidated-text response. The wording is invented. -->
+<response>
+  <status><code>200</code><text>ok</text></status>
+  <data>
+    <texto>
+      <bloque id="preambulo" tipo="preambulo">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="parrafo">Exposición de motivos ficticia.</p>
+        </version>
+      </bloque>
+      <bloque id="aunico" tipo="precepto" titulo="Artículo único">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Artículo único. Aprobación del reglamento.</p>
+          <p class="parrafo">Se aprueba el reglamento que se inserta a continuación.</p>
+        </version>
+      </bloque>
+      <bloque id="firma" tipo="firma">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="firma_rey">FELIPE R.</p>
+        </version>
+      </bloque>
+      <bloque id="reglamento" tipo="encabezado" titulo="REGLAMENTO">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="centro_redonda">REGLAMENTO DE PRUEBA</p>
+        </version>
+      </bloque>
+      <bloque id="tprimero" tipo="encabezado" titulo="TÍTULO PRIMERO">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="titulo_num">TÍTULO I</p>
+          <p class="titulo_tit">Disposiciones generales</p>
+        </version>
+      </bloque>
+      <bloque id="ci" tipo="encabezado" titulo="CAPÍTULO I">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="capitulo_num">CAPÍTULO I</p>
+          <p class="capitulo_tit">Objeto</p>
+        </version>
+      </bloque>
+      <bloque id="aprimero" tipo="precepto" titulo="Artículo primero">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Artículo primero. Objeto.</p>
+          <p class="parrafo">Texto original del artículo primero.</p>
+        </version>
+        <version id_norma="TEST-2" fecha_publicacion="20230101" fecha_vigencia="20230102">
+          <p class="articulo">Artículo primero. Objeto.</p>
+          <p class="parrafo">Texto modificado del artículo primero.</p>
+          <blockquote class="soloTexto"><p class="parrafo">Téngase en cuenta la actualización de importes.</p></blockquote>
+          <p class="nota_pie">Se modifica por la Ley de prueba 2/2023.</p>
+        </version>
+        <version id_norma="TEST-3" fecha_publicacion="20300101" fecha_vigencia="20300102">
+          <p class="articulo">Artículo primero. Objeto.</p>
+          <p class="parrafo">Redacción futura del artículo primero.</p>
+        </version>
+      </bloque>
+      <bloque id="sprimera" tipo="precepto" titulo="SECCIÓN PRIMERA">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="seccion">Sección primera. Definiciones</p>
+        </version>
+      </bloque>
+      <bloque id="asegundo" tipo="precepto" titulo="Artículo segundo bis">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Artículo segundo bis.</p>
+          <p class="parrafo">1. Primer apartado del artículo.</p>
+          <p class="parrafo">2. Segundo apartado del artículo, que enumera:</p>
+          <p class="parrafo_2">1.º Una regla interna.</p>
+          <p class="parrafo">3. Tercer apartado del artículo.</p>
+        </version>
+      </bloque>
+      <bloque id="atercero" tipo="precepto" titulo="Artículo tercero">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Artículo tercero. (Derogado).</p>
+        </version>
+      </bloque>
+      <bloque id="acuarto" tipo="precepto" titulo="Artículo cuarto" fecha_caducidad="20220101">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Artículo cuarto.</p>
+          <p class="parrafo">Artículo que caducó en 2022.</p>
+        </version>
+      </bloque>
+      <bloque id="daprimera" tipo="precepto" titulo="Disposición adicional decimotercera">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="articulo">Disposición adicional decimotercera. Conservación de documentos.</p>
+          <p class="parrafo">Texto de la disposición adicional.</p>
+        </version>
+      </bloque>
+      <bloque id="an" tipo="encabezado" titulo="ANEXO">
+        <version id_norma="TEST-1" fecha_publicacion="20200101" fecha_vigencia="20200102">
+          <p class="anexo_num">ANEXO</p>
+          <p class="anexo_tit">Tablas de prueba</p>
+          <table class="tabla">
+            <caption>Tabla 1.A Importes</caption>
+            <tr><th>Concepto</th><th>Importe</th></tr>
+            <tr><td>Gastos de traslado</td><td>500 €</td></tr>
+            <tr><td>Gastos de sepelio</td><td>Su importe</td></tr>
+          </table>
+          <p class="centro_redonda">TABLA 1.C.1 Coeficientes</p>
+          <table class="tabla_ancha">
+            <tr><th>Edad</th><th>A</th><th>B</th></tr>
+            <tr><td>20</td><td>1,1</td><td>1,2</td></tr>
+            <tr><td>21</td><td>1,3</td><td>1,4</td></tr>
+            <tr><td>22</td><td>1,5</td><td>1,6</td></tr>
+            <tr><td>23</td><td>1,7</td><td>1,8</td></tr>
+            <tr><td>24</td><td>1,9</td><td>2,0</td></tr>
+            <tr><td>25</td><td>2,1</td><td>2,2</td></tr>
+            <tr><td>26</td><td>2,3</td><td>2,4</td></tr>
+            <tr><td>27</td><td>2,5</td><td>2,6</td></tr>
+          </table>
+          <table class="tabla_ancha">
+            <caption>Tabla 1.C.1 (continuación)</caption>
+            <tr><th>Edad</th><th>A</th><th>B</th></tr>
+            <tr><td>28</td><td>2,7</td><td>2,8</td></tr>
+          </table>
+          <p class="centro_redonda">TABLA 1.C.2 Otros coeficientes</p>
+          <table class="tabla_ancha">
+            <tr><th>Edad</th><th>A</th><th>B</th></tr>
+            <tr><td>20</td><td>3,1</td><td>3,2</td></tr>
+            <tr><td>21</td><td>3,3</td><td>3,4</td></tr>
+            <tr><td>22</td><td>3,5</td><td>3,6</td></tr>
+            <tr><td>23</td><td>3,7</td><td>3,8</td></tr>
+            <tr><td>24</td><td>3,9</td><td>4,0</td></tr>
+            <tr><td>25</td><td>4,1</td><td>4,2</td></tr>
+            <tr><td>26</td><td>4,3</td><td>4,4</td></tr>
+            <tr><td>27</td><td>4,5</td><td>4,6</td></tr>
+          </table>
+        </version>
+      </bloque>
+    </texto>
+  </data>
+</response>
