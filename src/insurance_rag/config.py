@@ -19,6 +19,24 @@ class Settings(BaseSettings):
     data_dir: Path = Path("data")
 
     qdrant_url: str = "http://localhost:6333"
+    qdrant_collection: str = "chunks"
+
+    embedding_model: str = "BAAI/bge-m3"
+    embedding_device: str | None = None
+    """cpu, mps or cuda; autodetected when unset."""
+    embedding_query_prompt: str = ""
+    chunk_max_chars: int = 3200
+
+    reranker_model: str | None = None
+    """Cross-encoder used to rerank candidates, e.g. BAAI/bge-reranker-v2-m3; off when unset."""
+
+    @property
+    def raw_dir(self) -> Path:
+        return self.data_dir / "raw"
+
+    @property
+    def state_path(self) -> Path:
+        return self.data_dir / "state.db"
 
 
 @lru_cache
